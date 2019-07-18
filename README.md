@@ -1,2 +1,0 @@
-# exprezzo
-Chrome Extension
