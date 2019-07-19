@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="./static/main.css">
-  <script src="./static/popup.js"></script>
+  <link rel="stylesheet" href="./css/main.css">
+  <script src="./js/tesseract.min.js"></script>
   <title>Snipper</title>
 </head>
 <body>
@@ -26,15 +26,18 @@
       </div>
     </div>
 
+    <!-- <img id="imgContainer" src="" /> -->
+
     <div class="output">
       <div class="outputLabel">
         <span>Output:</span>
       </div>
       
       <div class="outputContent">
-        <textarea disabled cols="45" rows="10" id="outputArea">Click the scan button to start</textarea>
+        <textarea disabled cols="45" rows="10" id="outputArea">Paste an image to start</textarea>
       </div>
     </div>
   </div>
+  <script src="./js/popup.js"></script>
 </body>
 </html>
