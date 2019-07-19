@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var reader = new FileReader();
       reader.onload =  function(event) {
         state.imgData = event.target.result;
-        console.log(state.imgData)
 
         chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
           // const activeTab = tabs[0];
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
             langPath: chrome.runtime.getURL('traineddata'),
             corePath: chrome.runtime.getURL('js/tesseract-core.wasm.js'),
           });
-          alert(worker)
           worker.recognize(state.imgData)
             .then(({ text }) => {
               alert(text)
