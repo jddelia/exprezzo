@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const scanArea = document.getElementById('scanArea');
   const outputArea = document.getElementById('outputArea');
-  const img = document.getElementById(imgContainer);
+  // const img = document.getElementById(imgContainer);
 
   scanArea.addEventListener('paste', (e) => {
-    scanArea.innerText = "";
+    scanArea.innerText = "processing...";
 
     const items = (e.clipboardData  || e.originalEvent.clipboardData).items;
 
@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(({ text }) => {
               alert(text)
               outputArea.innerText = text;
+              scanArea.innerText = "Completed!"
             })
         });
       };
