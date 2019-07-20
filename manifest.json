@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Exprezzo",
-  "description": "This extension converts img to text",
+  "description": "This extension converts image to text",
   "version": "1.0",
 
   "browser_action": {

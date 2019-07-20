@@ -52,6 +52,7 @@ body {
   border: 2px dashed #d62121;
   border-radius: 5px;
   background: #ffffff;
+  overflow: hidden;
   color: #000000;
   font-size: 16px;
   font-weight: 400;
