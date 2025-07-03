@@ -87,3 +87,9 @@ body {
 #outputArea {
   padding: 2% 1%;
 }
+
+.spellOption {
+  padding: 1%;
+  font-size: 12px;
+  color: #222222;
+}
