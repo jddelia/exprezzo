@@ -1,0 +1,16 @@
+{
+  "name": "exprezzo",
+  "version": "1.0.0",
+  "description": "Chrome Extension",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "spellchecker": "^3.7.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
