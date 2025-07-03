@@ -12,7 +12,7 @@
 
   "web_accessible_resources": [
     "js/worker.min.js",
-    "js/tessearct-core.wasm.js",
+    "js/tesseract-core.wasm.js",
     "traineddata/*.traineddata.gz"
   ],
 
