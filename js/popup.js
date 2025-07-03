@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // const img = document.getElementById(imgContainer);
 
   scanArea.addEventListener('paste', (e) => {
-    scanArea.innerText = "processing...";
+    scanArea.innerText = "Processing...";
 
     const items = (e.clipboardData  || e.originalEvent.clipboardData).items;
 
@@ -34,10 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
             corePath: chrome.runtime.getURL('js/tesseract-core.wasm.js'),
           });
           worker.recognize(state.imgData)
-            .then(({ text }) => {
-              alert(text)
-              outputArea.innerText = text;
-              scanArea.innerText = "Completed!"
+            .then(({ data }) => {
+              const lines = data.lines || [];
+              const segmentedText = lines.map(l => l.text).join('\n');
+              outputArea.value = segmentedText;
+              scanArea.innerText = "Completed!";
             })
         });
       };
