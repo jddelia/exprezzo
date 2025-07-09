@@ -7,11 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const spellToggle = document.getElementById('spellToggle');
   
   const scanArea = document.getElementById('scanArea');
+  const scanMessage = document.getElementById('scanMessage');
   const outputArea = document.getElementById('outputArea');
   // const img = document.getElementById(imgContainer);
 
-  function handlePaste(e) {
-    scanArea.innerText = "Processing...";
+    function handlePaste(e) {
+      e.preventDefault();
+      scanArea.classList.add('processing');
+      scanMessage.innerText = "Processing...";
 
     const items = (e.clipboardData  || e.originalEvent.clipboardData).items;
 
@@ -42,8 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
               if (!spellToggle || spellToggle.checked) {
                 segmentedText = correctText(segmentedText);
               }
-              outputArea.value = segmentedText;
-              scanArea.innerText = "Completed!";
+                outputArea.value = segmentedText;
+                scanMessage.innerText = "Completed!";
+                scanArea.classList.remove('processing');
             })
         });
       };
@@ -57,5 +61,4 @@ document.addEventListener('DOMContentLoaded', function() {
   // Allow pasting anywhere in the popup
   document.addEventListener('paste', handlePaste);
 
-  // Focus the editable area by default so Ctrl+V works immediately
-  scanArea.focus();}, false);
+  // Focus the editable area by default so Ctrl+V works immediately  scanArea.focus();}, false);
