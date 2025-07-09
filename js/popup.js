@@ -60,5 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
   scanArea.addEventListener('paste', handlePaste);
   // Allow pasting anywhere in the popup
   document.addEventListener('paste', handlePaste);
-
-  // Focus the editable area by default so Ctrl+V works immediately  scanArea.focus();}, false);
+  // Focus the editable area by default so Ctrl+V works immediately
+  scanArea.focus();
+}, false);
