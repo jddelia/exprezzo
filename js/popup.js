@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const outputArea = document.getElementById('outputArea');
   // const img = document.getElementById(imgContainer);
 
-  scanArea.addEventListener('paste', (e) => {
+  function handlePaste(e) {
     scanArea.innerText = "Processing...";
 
     const items = (e.clipboardData  || e.originalEvent.clipboardData).items;
@@ -51,5 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     outputArea.removeAttribute('disabled');
-  });
-}, false);
+  }
+
+  scanArea.addEventListener('paste', handlePaste);
+  // Allow pasting anywhere in the popup
+  document.addEventListener('paste', handlePaste);
+
+  // Focus the editable area by default so Ctrl+V works immediately
+  scanArea.focus();}, false);
