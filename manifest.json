@@ -19,10 +19,7 @@
     "matches": ["<all_urls>"]
   }],
 
-  "permissions": [
-   "activeTab",
-   "tabs"
-   ],
+  "permissions": [],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; worker-src 'self'; connect-src 'self' https://localhost http://localhost http://127.0.0.1 ws://localhost ws://127.0.0.1 ws://localhost:3000; object-src 'self'"
   }

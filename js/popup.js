@@ -30,36 +30,32 @@ document.addEventListener('DOMContentLoaded', function() {
       reader.onload =  function(event) {
         state.imgData = event.target.result;
 
-        chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-          // const activeTab = tabs[0];
-
-          const { TesseractWorker } = Tesseract;
-          const worker = new TesseractWorker({
-            workerPath: chrome.runtime.getURL('js/worker.min.js'),
-            langPath: chrome.runtime.getURL('traineddata'),
-            corePath: chrome.runtime.getURL('js/tesseract-core.wasm.js'),
-          });
-          worker.recognize(state.imgData)
-            .then(({ data }) => {
-              let segmentedText = segmentLines(data);
-              if (!spellToggle || spellToggle.checked) {
-                segmentedText = correctText(segmentedText);
-              }
-                outputArea.value = segmentedText;
-                scanMessage.innerText = "Completed!";
-                scanArea.classList.remove('processing');
-            })
-            .catch((err) => {
-              console.error(err);
-              scanArea.classList.remove('processing');
-              scanMessage.innerText = 'Failed to process image.';
-              outputArea.value = '';
-              outputArea.setAttribute('disabled', 'true');
-              if (worker.terminate) {
-                worker.terminate();
-              }
-            });
+        const { TesseractWorker } = Tesseract;
+        const worker = new TesseractWorker({
+          workerPath: chrome.runtime.getURL('js/worker.min.js'),
+          langPath: chrome.runtime.getURL('traineddata'),
+          corePath: chrome.runtime.getURL('js/tesseract-core.wasm.js'),
         });
+        worker.recognize(state.imgData)
+          .then(({ data }) => {
+            let segmentedText = segmentLines(data);
+            if (!spellToggle || spellToggle.checked) {
+              segmentedText = correctText(segmentedText);
+            }
+            outputArea.value = segmentedText;
+            scanMessage.innerText = "Completed!";
+            scanArea.classList.remove('processing');
+          })
+          .catch((err) => {
+            console.error(err);
+            scanArea.classList.remove('processing');
+            scanMessage.innerText = 'Failed to process image.';
+            outputArea.value = '';
+            outputArea.setAttribute('disabled', 'true');
+            if (worker.terminate) {
+              worker.terminate();
+            }
+          });
       };
       reader.readAsDataURL(imgBlob);
     }
