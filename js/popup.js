@@ -49,6 +49,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 scanMessage.innerText = "Completed!";
                 scanArea.classList.remove('processing');
             })
+            .catch((err) => {
+              console.error(err);
+              scanArea.classList.remove('processing');
+              scanMessage.innerText = 'Failed to process image.';
+              outputArea.value = '';
+              outputArea.setAttribute('disabled', 'true');
+              if (worker.terminate) {
+                worker.terminate();
+              }
+            });
         });
       };
       reader.readAsDataURL(imgBlob);
