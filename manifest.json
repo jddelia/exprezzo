@@ -21,6 +21,6 @@
 
   "permissions": [],
   "content_security_policy": {
-    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self' data: https://localhost http://localhost http://127.0.0.1 ws://localhost ws://127.0.0.1 ws://localhost:3000; object-src 'self';"
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self'; object-src 'self';"
   }
 }
