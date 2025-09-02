@@ -13,10 +13,11 @@
     'make','can','like','time','no','just','him','know','take','people','into',
     'year','your','good','some','could','them','see','other','than','then',
     'now','look','only','come','its','over','think','also','back','after','use',
-    'two','how','our','work','first','well','way','even','new','want','because',
+    'two','how','our','work','world','first','well','way','even','new','want','because',
     'any','these','give','day','most','us'
   ];
 
+  // Damerau-Levenshtein distance to account for adjacent transpositions
   function levenshtein(a, b) {
     const dp = Array.from({ length: a.length + 1 }, () => new Array(b.length + 1).fill(0));
     for (let i = 0; i <= a.length; i++) dp[i][0] = i;
@@ -24,7 +25,19 @@
     for (let i = 1; i <= a.length; i++) {
       for (let j = 1; j <= b.length; j++) {
         const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-        dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+        dp[i][j] = Math.min(
+          dp[i - 1][j] + 1,
+          dp[i][j - 1] + 1,
+          dp[i - 1][j - 1] + cost
+        );
+        if (
+          i > 1 &&
+          j > 1 &&
+          a[i - 1] === b[j - 2] &&
+          a[i - 2] === b[j - 1]
+        ) {
+          dp[i][j] = Math.min(dp[i][j], dp[i - 2][j - 2] + cost);
+        }
       }
     }
     return dp[a.length][b.length];
@@ -53,7 +66,9 @@
     return text
       .split(/\b/)
       .map(token => (/^[A-Za-z]+$/.test(token) ? correctWord(token) : token))
-      .join('');
+      .join('')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   function segmentLines(data) {
