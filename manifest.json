@@ -10,6 +10,10 @@
     "default_popup": "popup.html"
   },
 
+  "background": {
+    "service_worker": "js/background-ocr.js"
+  },
+
   "web_accessible_resources": [{
     "resources": [
       "js/worker.min.js",
@@ -19,7 +23,7 @@
     "matches": ["<all_urls>"]
   }],
 
-  "permissions": [],
+  "permissions": ["scripting"],
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self'; object-src 'self';"
   }

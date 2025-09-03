@@ -23,12 +23,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (imgBlob !== null) {
-      const { TesseractWorker } = Tesseract;
-        const worker = new TesseractWorker({
-          langPath: chrome.runtime.getURL('traineddata'),
-        });
-      worker.recognize(imgBlob)
-        .then(({ data }) => {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const imageData = evt.target.result;
+        chrome.runtime.sendMessage({ action: 'recognize', image: imageData }, (response) => {
+          if (chrome.runtime.lastError || !response) {
+            console.error(chrome.runtime.lastError);
+            scanArea.classList.remove('processing');
+            scanMessage.innerText = 'Failed to process image.';
+            outputArea.value = '';
+            outputArea.setAttribute('disabled', 'true');
+            return;
+          }
+          const { data } = response;
           let segmentedText = segmentLines(data);
           if (!spellToggle || spellToggle.checked) {
             segmentedText = correctText(segmentedText);
@@ -36,17 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
           outputArea.value = segmentedText;
           scanMessage.innerText = "Completed!";
           scanArea.classList.remove('processing');
-        })
-        .catch((err) => {
-          console.error(err);
-          scanArea.classList.remove('processing');
-          scanMessage.innerText = 'Failed to process image.';
-          outputArea.value = '';
-          outputArea.setAttribute('disabled', 'true');
-          if (worker.terminate) {
-            worker.terminate();
-          }
         });
+      };
+      reader.readAsDataURL(imgBlob);
     }
 
     outputArea.removeAttribute('disabled');
