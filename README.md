@@ -24,3 +24,11 @@ npm test
 ```
 
 The project uses **jest** for its tests.
+
+## Updating Tesseract.js
+
+The files `js/tesseract.min.js`, `js/worker.min.js`, and `js/tesseract-core.wasm.js` are vendored
+from the official [Tesseract.js](https://github.com/naptha/tesseract.js) releases. When upgrading,
+download fresh copies from upstream rather than editing the minified output directly. Any local
+customisation, such as the worker and core paths required for the Chrome extension, should be done
+via wrapper scripts like `js/tesseract-wrapper.js` instead of modifying the vendor files.

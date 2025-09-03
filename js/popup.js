@@ -24,11 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (imgBlob !== null) {
       const { TesseractWorker } = Tesseract;
-      const worker = new TesseractWorker({
-        workerPath: chrome.runtime.getURL('js/worker.min.js'),
-        langPath: chrome.runtime.getURL('traineddata'),
-        corePath: chrome.runtime.getURL('js/tesseract-core.wasm.js'),
-      });
+        const worker = new TesseractWorker({
+          langPath: chrome.runtime.getURL('traineddata'),
+        });
       worker.recognize(imgBlob)
         .then(({ data }) => {
           let segmentedText = segmentLines(data);
